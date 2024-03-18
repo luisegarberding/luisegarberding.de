@@ -1,10 +1,9 @@
 import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
-import { loadEnv } from "vite";
+import netlify from "@astrojs/netlify";
 
 // https://astro.build/config
 export default defineConfig({
-  prefetch: true,
-  integrations: [tailwind()],
-  site: "https://tahir.sh",
+  integrations: [tailwind(), netlify()],
+  site: "https://luisegarberding.de",
 });

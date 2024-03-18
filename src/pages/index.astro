@@ -2,22 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import FloatingBox from "../components/SmallBox.astro";
 import { Picture } from "astro:assets";
-import iconImage from "../assets/icon.png";
-import { config } from "../config";
+import iconImage from "../assets/profile.jpg";
 
-const years = () => {
-  const start = new Date(config.me.started);
-  const now = new Date();
-  return now.getFullYear() - start.getFullYear();
-};
 
-import { getCollection } from "astro:content";
-const posts = (await getCollection("posts")).sort(function (
-  first: any,
-  second: any
-) {
-  return second.data.publishedAt.getTime() - first.data.publishedAt.getTime();
-});
+const years_of_experience = new Date().getFullYear() - 2020;
+  
 ---
 
 <Layout>
@@ -26,35 +15,41 @@ const posts = (await getCollection("posts")).sort(function (
       <article class="md:flex-row-reverse md:justify-end md:gap-12">
         <div class="flex flex-row justify-between sm:grid-cols-3">
           <div class="col-span-2 flex flex-col gap-6 md:gap-8 my-auto">
-            <h1 class="text-3xl">Hi, I’m {config.me.name.split(" ")[0]}</h1>
+            <h1 class="text-3xl">Hi, I’m Luise Garberding!</h1>
             <h2 class="w-auto sm:w-[85%] md:w-[90%] leading-6">
-              I am a <strong class="font-normal text-primary"
-                >{config.me.job}</strong
-              > with over
-              <strong class="font-normal text-primary">{years} years</strong> of
-              experience. I am currently working with<strong
+              I've been a <strong class="font-normal text-primary"
+                >computer science student</strong
+              > for
+              <strong class="font-normal text-primary">{years_of_experience} years</strong>. I have some experience in <strong
                 class="font-normal text-primary"
-              >
-                {config.me.stack}</strong
-              >. Outside of programming I like to {config.me.hobby}.
+              >software modeling, web development and algorithms</strong
+              >. I'm interesested in <strong class="font-normal text-primary"
+                >cyber security</strong>.
             </h2>
             <div class="custom-breadcrumbs">
               <ul>
-                {
-                  Object.keys(config.socials).map((social) => (
-                    <li>
-                      <a
-                        href={
-                          config.socials[social as keyof typeof config.socials]
-                        }
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        {social.charAt(0).toUpperCase() + social.slice(1)}
-                      </a>
-                    </li>
-                  ))
-                }
+                <li>
+                  <a
+                    href={
+                      "https://github.com/luisegarberding"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                   GitHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={
+                      "https://www.linkedin.com/in/luise-garberding-23047723a/"
+                    }
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                   LinkedIn
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -77,7 +72,7 @@ const posts = (await getCollection("posts")).sort(function (
         <header class="flex w-full flex-row justify-between gap-2">
           <h3 class="text-lg">Featured projects</h3>
           <a
-            href="https://github.com/pastc?tab=repositories"
+            href="https://github.com/luisegarberding?tab=repositories"
             class="text-sm text-primary underline decoration-dashed underline-offset-8"
             target="_self"
             rel="noreferrer"
@@ -87,49 +82,24 @@ const posts = (await getCollection("posts")).sort(function (
         <section
           class="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-center items-stretch"
         >
-          {
-            Object.keys(config.projects).map((project) => (
+          
+            
+  
               <FloatingBox
-                title={project}
+                title={"luisegarberding.de"}
                 href={
-                  config.projects[project as keyof typeof config.projects].url
+                  "https://github.com/luisegarberding/luisegarberding.de"
                 }
                 tags={
-                  config.projects[project as keyof typeof config.projects].tags
+                  ["Astro", "Netlify", "HTML", "TailwindCSS", "Typescript"]
                 }
               />
-            ))
-          }
+          
+          
         </section>
       </article>
 
-      <article class="flex flex-col gap-8">
-        <header class="flex w-full flex-row justify-between gap-2">
-          <h3 class="text-lg">Latest posts</h3>
-          <a
-            href="/posts"
-            class="text-sm text-primary underline decoration-dashed underline-offset-8"
-            rel="noreferrer"
-            >See all posts
-          </a>
-        </header>
-        <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 mx-auto">
-          {
-            posts.map((post: any) => (
-              <FloatingBox
-                title={post.data.title}
-                publishedAt={post.data.publishedAt.toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-                description={post.data.description}
-                href={"/posts/" + post.slug}
-              />
-            ))
-          }
-        </section>
-      </article>
+     
     </div>
   </main>
 </Layout>
